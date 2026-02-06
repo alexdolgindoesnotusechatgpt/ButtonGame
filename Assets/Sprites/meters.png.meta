@@ -1,16 +1,28 @@
 fileFormatVersion: 2
-guid: efcc6d221be3734458dadaeb0137d203
+guid: 4028b243c77335a46b709f0b938e27f6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2982079611359553934
-    second: stickiesblank_0
+      213: 8759862920730069391
+    second: meters_0
   - first:
-      213: 6616011051763889981
-    second: stickiesblank_1
+      213: -8709238551067435547
+    second: meters_1
   - first:
-      213: 6471923027532204447
-    second: stickiesblank_2
+      213: 4676309155903662585
+    second: meters_2
+  - first:
+      213: 8325867890131125620
+    second: meters_3
+  - first:
+      213: -4169607954682479100
+    second: meters_4
+  - first:
+      213: -8092974630733278533
+    second: meters_5
+  - first:
+      213: -3645031247463017187
+    second: meters_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,12 +64,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,67 +118,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stickiesblank_0
+      name: meters_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 23
-        width: 40
-        height: 40
+        x: 533
+        y: 1860
+        width: 694
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8965075b99726920800000000000000
-      internalID: 2982079611359553934
+      spriteID: f894b372ae8419970800000000000000
+      internalID: 8759862920730069391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stickiesblank_1
+      name: meters_1
       rect:
         serializedVersion: 2
-        x: 27
-        y: 54
-        width: 49
-        height: 41
+        x: 518
+        y: 1594
+        width: 694
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d37f17a9ffac0db50800000000000000
-      internalID: 6616011051763889981
+      spriteID: 5eddc7b6ea1922780800000000000000
+      internalID: -8709238551067435547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stickiesblank_2
+      name: meters_2
       rect:
         serializedVersion: 2
-        x: 38
-        y: 0
-        width: 55
-        height: 48
+        x: 516
+        y: 1333
+        width: 694
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f994abd24b3e0d950800000000000000
-      internalID: 6471923027532204447
+      spriteID: 9f96b81b66695e040800000000000000
+      internalID: 4676309155903662585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meters_3
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 1063
+        width: 693
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475c816dbbc6b8370800000000000000
+      internalID: 8325867890131125620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meters_4
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 797
+        width: 694
+        height: 246
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40ef18028a39226c0800000000000000
+      internalID: -4169607954682479100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meters_5
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 528
+        width: 694
+        height: 246
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb215e6a37affaf80800000000000000
+      internalID: -8092974630733278533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meters_6
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 252
+        width: 693
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1594c3846f3a6dc0800000000000000
+      internalID: -3645031247463017187
       vertices: []
       indices: 
       edges: []
@@ -175,7 +275,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: afcca9b8014ab3f42ade542d8c82d948
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +285,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stickiesblank_0: 2982079611359553934
-      stickiesblank_1: 6616011051763889981
-      stickiesblank_2: 6471923027532204447
+      meters_0: 8759862920730069391
+      meters_1: -8709238551067435547
+      meters_2: 4676309155903662585
+      meters_3: 8325867890131125620
+      meters_4: -4169607954682479100
+      meters_5: -8092974630733278533
+      meters_6: -3645031247463017187
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

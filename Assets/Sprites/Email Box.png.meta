@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: efcc6d221be3734458dadaeb0137d203
+guid: 3b29b5874132fe34db53cf3cd7cbb30d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2982079611359553934
-    second: stickiesblank_0
-  - first:
-      213: 6616011051763889981
-    second: stickiesblank_1
-  - first:
-      213: 6471923027532204447
-    second: stickiesblank_2
+      213: -8929664577273879712
+    second: Email Box_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stickiesblank_0
+      name: Email Box_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 23
-        width: 40
-        height: 40
+        x: 387
+        y: 460
+        width: 954
+        height: 1730
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8965075b99726920800000000000000
-      internalID: 2982079611359553934
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stickiesblank_1
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 54
-        width: 49
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d37f17a9ffac0db50800000000000000
-      internalID: 6616011051763889981
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stickiesblank_2
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 55
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f994abd24b3e0d950800000000000000
-      internalID: 6471923027532204447
+      spriteID: 063a33cd065731480800000000000000
+      internalID: -8929664577273879712
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stickiesblank_0: 2982079611359553934
-      stickiesblank_1: 6616011051763889981
-      stickiesblank_2: 6471923027532204447
+      Email Box_0: -8929664577273879712
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

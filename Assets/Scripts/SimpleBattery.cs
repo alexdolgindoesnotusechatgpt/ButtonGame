@@ -5,13 +5,14 @@ public class SimpleBattery : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("How many seconds the battery lasts from full to empty")]
-    [SerializeField] private float maxSeconds = 5.0f;
+    [SerializeField] public float maxSeconds = 5.0f;
 
     [Header("Visuals")]
-    [SerializeField] private Transform fillBarTransform; // Assign the Green Bar
-    [SerializeField] private SpriteRenderer fillRenderer; // Assign Green Bar (for color)
-    [SerializeField] private Color normalColor = Color.green;
-    [SerializeField] private Color criticalColor = Color.red;
+    [Tooltip("The SpriteRenderer that displays the battery")]
+    [SerializeField] private SpriteRenderer batteryRenderer;
+
+    [Tooltip("Order them from Empty (Element 0) to Full (Element 5)")]
+    [SerializeField] private Sprite[] batteryLevels;
 
     [Header("Events")]
     public UnityEvent OnPowerDepleted;
@@ -21,12 +22,10 @@ public class SimpleBattery : MonoBehaviour
     public float CurrentCharge { get; private set; }
 
     private bool isDepleted = false;
-    private Vector3 originalScale;
 
     void Start()
     {
         CurrentCharge = maxSeconds;
-        if (fillBarTransform != null) originalScale = fillBarTransform.localScale;
         UpdateVisuals();
     }
 
@@ -54,7 +53,6 @@ public class SimpleBattery : MonoBehaviour
         }
     }
 
-    // Call this from the button!
     public void AddCharge(float amount)
     {
         CurrentCharge += amount;
@@ -62,19 +60,25 @@ public class SimpleBattery : MonoBehaviour
 
     void UpdateVisuals()
     {
-        if (fillBarTransform == null) return;
+        if (batteryRenderer == null || batteryLevels.Length == 0) return;
 
+        // 1. Calculate percentage (0.0 to 1.0)
         float pct = CurrentCharge / maxSeconds;
 
-        // Scale Logic (Requires Pivot Left on Sprite)
-        Vector3 newScale = originalScale;
-        newScale.x = originalScale.x * pct;
-        fillBarTransform.localScale = newScale;
+        // 2. Convert percentage to an Array Index
+        // Example: If pct is 0.5 and we have 6 sprites -> Index 3
+        int index = Mathf.FloorToInt(pct * batteryLevels.Length);
 
-        // Color Logic
-        if (fillRenderer != null)
-        {
-            fillRenderer.color = (pct < 0.25f) ? criticalColor : normalColor;
-        }
+        // 3. Safety Clamp
+        // If pct is 1.0, the math above gives us index 6 (which is out of bounds for an array of 6), so we clamp it.
+        index = Mathf.Clamp(index, 0, batteryLevels.Length - 1);
+
+        // 4. Swap the Sprite
+        batteryRenderer.sprite = batteryLevels[index];
+    }
+
+    public float GetMaxCharge()
+    {
+        return maxSeconds;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using JetBrains.Annotations;
 
 public class EmailTyper : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class EmailTyper : MonoBehaviour
     [Tooltip("The line being typed will always try to stay at this Y position inside the mask (e.g., -50).")]
     [SerializeField] private float preferredLineY = -50f;
 
+    [Tooltip("The black object that covers the screen when power dies")]
+    [SerializeField] private GameObject blackScreenOverlay;
+
     [Header("Events")]
     public UnityEvent OnEmailComplete;
 
@@ -30,6 +34,7 @@ public class EmailTyper : MonoBehaviour
 
     void Start()
     {
+
         // Text must be Top-Aligned for the math to work easily
         emailDisplay.alignment = TextAlignmentOptions.TopLeft;
 
@@ -158,5 +163,16 @@ public class EmailTyper : MonoBehaviour
         isComplete = false;
         targetScrollY = 0;
         UpdateDisplay();
+    }
+
+    public void TurnOffScreen()
+    {
+        this.enabled = false;
+        emailDisplay.enabled = false;
+    }
+    public void TurnOnScreen()
+    {
+        this.enabled = true;
+        emailDisplay.enabled = true;
     }
 }
