@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float gracePeriodDuration = 2.0f;
     [SerializeField] private float gameOverScreenDuration = 4.0f;
 
+    [Header("Event Settings")]
+    [Tooltip("How long the chatty event lasts in seconds.")]
+    [SerializeField] private float chattyEventDuration = 8.0f; // Reduced from 15
+
     [Header("Scene References")]
     [SerializeField] private SimpleBattery battery;
     [SerializeField] private EmailTyper emailTyper;
@@ -101,7 +105,7 @@ public class GameManager : MonoBehaviour
         if (emailTyper != null)
             emailTyper.OnEmailSent.AddListener(OnEmailCompleted);
 
-        nextChattyEventTime = day1Duration - 60f;
+        nextChattyEventTime = day1Duration - 35f;
 
         StartCoroutine(DayStartSequence());
     }
@@ -280,7 +284,7 @@ public class GameManager : MonoBehaviour
 
         if (chattyEmployee != null) chattyEmployee.StartChattering();
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(chattyEventDuration); // Use variable instead of default 15f
 
         if (chattyEmployee != null) chattyEmployee.StopChattering();
 
