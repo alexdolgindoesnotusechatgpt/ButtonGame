@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 3b29b5874132fe34db53cf3cd7cbb30d
+guid: 230d770f80ec0264f9dd44086b718703
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8929664577273879712
-    second: Email Box_0
+      213: 5817112095963145753
+    second: Day Markers_0
+  - first:
+      213: -172611197679079490
+    second: Day Markers_1
+  - first:
+      213: -6372949700271487534
+    second: Day Markers_2
+  - first:
+      213: -5324797917660147354
+    second: Day Markers_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Email Box_0
+      name: Day Markers_0
       rect:
         serializedVersion: 2
-        x: 386
-        y: 460
-        width: 956
-        height: 1730
+        x: 80
+        y: 1511
+        width: 735
+        height: 732
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 063a33cd065731480800000000000000
-      internalID: -8929664577273879712
+      spriteID: 916e28281a88ab050800000000000000
+      internalID: 5817112095963145753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day Markers_1
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 1505
+        width: 736
+        height: 736
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebf651eb703ca9df0800000000000000
+      internalID: -172611197679079490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day Markers_2
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 37
+        width: 737
+        height: 736
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d5c2ef430cbe87a0800000000000000
+      internalID: -6372949700271487534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Day Markers_3
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 768
+        width: 736
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 661902181848a16b0800000000000000
+      internalID: -5324797917660147354
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bfb51dbfdaa971e43b3273ad81c98793
+    spriteID: 2bed85b3773235a49a58ed63a1c02112
     internalID: 0
     vertices: []
     indices: 
@@ -133,11 +208,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1478.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Email Box_0: -8929664577273879712
+      Day Markers_0: 5817112095963145753
+      Day Markers_1: -172611197679079490
+      Day Markers_2: -6372949700271487534
+      Day Markers_3: -5324797917660147354
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

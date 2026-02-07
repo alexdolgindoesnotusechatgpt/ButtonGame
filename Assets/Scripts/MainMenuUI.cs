@@ -5,14 +5,27 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button playButton;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private Sprite pressedButtonSprite; // The sprite to show when clicked
+
     private void Awake()
     {
-        playButton.onClick.AddListener(() =>
+        if (playButton != null)
         {
-            SceneManager.LoadScene("GameScene");
+            playButton.onClick.AddListener(() =>
+            {
+                // Switch the sprite immediately
+                if (pressedButtonSprite != null)
+                {
+                    Image btnImage = playButton.GetComponent<Image>();
+                    if (btnImage != null)
+                    {
+                        btnImage.sprite = pressedButtonSprite;
+                    }
+                }
 
-        });   
+                // Load the game scene
+                SceneManager.LoadScene("GameScene");
+            });
+        }
     }
-
 }

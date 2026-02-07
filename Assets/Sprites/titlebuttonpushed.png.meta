@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 3b29b5874132fe34db53cf3cd7cbb30d
+guid: 7b02b45c53d86a94d822e6648f25cfbc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8929664577273879712
-    second: Email Box_0
+      213: -1091270920325412999
+    second: titlebuttonpushed_0
+  - first:
+      213: 4182835430650525760
+    second: titlebuttonpushed_1
+  - first:
+      213: 6893109456753907264
+    second: titlebuttonpushed_2
+  - first:
+      213: 115164975379556916
+    second: titlebuttonpushed_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,13 +55,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.5376386, y: 0.30806482}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 167, y: 60, z: 118, w: 173}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Email Box_0
+      name: titlebuttonpushed_0
       rect:
         serializedVersion: 2
-        x: 386
-        y: 460
-        width: 956
-        height: 1730
+        x: 170
+        y: 64
+        width: 48
+        height: 43
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 063a33cd065731480800000000000000
-      internalID: -8929664577273879712
+      spriteID: 9774a4831e60bd0f0800000000000000
+      internalID: -1091270920325412999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titlebuttonpushed_1
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 64
+        width: 85
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 048b7dd99aa6c0a30800000000000000
+      internalID: 4182835430650525760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titlebuttonpushed_2
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 69
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 046d3b7978e39af50800000000000000
+      internalID: 6893109456753907264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titlebuttonpushed_3
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 67
+        width: 48
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43aa0185fe5299100800000000000000
+      internalID: 115164975379556916
       vertices: []
       indices: 
       edges: []
@@ -125,19 +200,20 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bfb51dbfdaa971e43b3273ad81c98793
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1478.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Email Box_0: -8929664577273879712
+      titlebuttonpushed_0: -1091270920325412999
+      titlebuttonpushed_1: 4182835430650525760
+      titlebuttonpushed_2: 6893109456753907264
+      titlebuttonpushed_3: 115164975379556916
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

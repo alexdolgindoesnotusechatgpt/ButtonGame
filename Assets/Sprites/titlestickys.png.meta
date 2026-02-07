@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 3b29b5874132fe34db53cf3cd7cbb30d
+guid: c9dea169646351c4ab3ed9f2b98272fc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8929664577273879712
-    second: Email Box_0
+      213: 7882889853807924318
+    second: titlestickys_0
+  - first:
+      213: 8399615009773367475
+    second: titlestickys_1
+  - first:
+      213: -2230758997073057289
+    second: titlestickys_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,23 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Email Box_0
+      name: titlestickys_0
       rect:
         serializedVersion: 2
-        x: 386
-        y: 460
-        width: 956
-        height: 1730
+        x: 145
+        y: 146
+        width: 41
+        height: 40
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 063a33cd065731480800000000000000
-      internalID: -8929664577273879712
+      spriteID: e5490c38e86a56d60800000000000000
+      internalID: 7882889853807924318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titlestickys_1
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 122
+        width: 234
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b0b49b295d619470800000000000000
+      internalID: 8399615009773367475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titlestickys_2
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 62
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f924ffd280ca01e0800000000000000
+      internalID: -2230758997073057289
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bfb51dbfdaa971e43b3273ad81c98793
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -133,11 +183,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1478.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Email Box_0: -8929664577273879712
+      titlestickys_0: 7882889853807924318
+      titlestickys_1: 8399615009773367475
+      titlestickys_2: -2230758997073057289
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
