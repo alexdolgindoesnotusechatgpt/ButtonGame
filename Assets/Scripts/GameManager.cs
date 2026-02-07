@@ -121,6 +121,21 @@ public class GameManager : MonoBehaviour
 
         if (!isGameActive) return;
 
+        // Manual Zoom Toggle (Right Click)
+        // Ensure we don't interfere if the Chatty Event is controlling the camera
+        if (!isChattyEventActive && Input.GetMouseButtonDown(1))
+        {
+            // If we are close to the "zoomed in" sate, toggle to "zoomed out", and vice versa
+            if (Mathf.Abs(targetZoomSize - laptopZoomSize) < 0.1f)
+            {
+                targetZoomSize = normalZoomSize;
+            }
+            else
+            {
+                targetZoomSize = laptopZoomSize;
+            }
+        }
+
         // Timer Logic
         timeRemaining -= Time.deltaTime;
         UpdateTimerUI();
