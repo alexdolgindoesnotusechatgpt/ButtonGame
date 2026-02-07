@@ -13,18 +13,18 @@ public class ChatBubble : MonoBehaviour
     // A list of annoying things the employee says
     private string[] messages = new string[]
     {
-        "HI!",
-        "What? Wow...",
-        "Hey...",
-        "Did you hear?",
-        "About the boss...",
-        "He's so bossy!",
-        "Working hard?",
-        "Look at this!",
-        "Crazy weather!",
-        "Do you have a sec?",
-        "Just one question...",
-        "Wait, really?"
+        "HR says crying is allowed, but only between 12:00 and 12:15.",
+        "You type really loud. It’s impressive. Like a woodpecker.",
+        "Working hard or hardly working? Haha!",
+        "Hey, quick question. It’s not about work. I just forgot my password. Again.",
+        "I’m just gonna stand here and watch you for a sec. I need to absorb your productivity.",
+        "Did you see the email I sent you? I sent it three seconds ago.",
+        "Whoa, is that Excel? I love Excel. Can I show you a shortcut? Move over.",
+        "You missed a comma. No, go back. Back. Right there.",
+        "Let's circle back and touch base offline about the synergy.",
+        "I'm just trying to be a changemaker in this cubicle space.",
+        "My therapist says I need to practice 'boundary invasion'. How am I doing?",
+        "Ideally, the battery bar should be green. Red is usually bad."
     };
 
     private Vector3 startPos;

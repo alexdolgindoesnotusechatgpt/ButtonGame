@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI; // Required for the Button
+using UnityEngine.UI;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
 public class EmailTyper : MonoBehaviour
 {
     [Header("UI References")]
@@ -15,6 +16,12 @@ public class EmailTyper : MonoBehaviour
     [SerializeField] private string emailContent = "Subject: Hello World...";
     [SerializeField] private Color typedColor = Color.green;
     [SerializeField] private Color remainingColor = Color.white;
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip[] typeSoundEffects; // Array for variety
+    [SerializeField] private AudioClip errorSoundEffect;
+    [SerializeField] private AudioClip emailSentSoundEffect;
+    private AudioSource audioSource;
 
     [Header("Scrolling Settings")]
     [SerializeField] private RectTransform textRect;
@@ -34,12 +41,10 @@ public class EmailTyper : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         emailDisplay.alignment = TextAlignmentOptions.TopLeft;
 
-        // --- FIX ADDED HERE ---
-        // We sanitize the starting text to remove invisible characters
         emailContent = CleanText(emailContent);
-        // ----------------------
 
         if (sendButton != null)
         {
@@ -48,7 +53,6 @@ public class EmailTyper : MonoBehaviour
             sendButton.onClick.AddListener(OnSendButtonClicked);
         }
 
-        // Initialize display
         emailDisplay.text = emailContent;
         UpdateDisplay();
     }
@@ -71,9 +75,9 @@ public class EmailTyper : MonoBehaviour
                 {
                     currentTyped = currentTyped.Substring(0, currentTyped.Length - 1);
                     UpdateDisplay();
+                    PlayTypingSound(); 
                 }
             }
-            // Consolidate both Return and Enter keys to a standard newline character
             else if (c == '\n' || c == '\r')
             {
                 CheckInput('\n');
@@ -95,13 +99,34 @@ public class EmailTyper : MonoBehaviour
             {
                 currentTyped += inputChar;
                 UpdateDisplay();
-                CheckButtonState(); // Check if we are done
+                CheckButtonState();
+                PlayTypingSound();
             }
             else
             {
-                // Optional Debug: Uncomment this if you get stuck again
-                // Debug.Log($"Expected: {(int)expectedChar} | Typed: {(int)inputChar}");
+                PlayErrorSound();
             }
+        }
+    }
+
+    void PlayTypingSound()
+    {
+        if (audioSource != null && typeSoundEffects != null && typeSoundEffects.Length > 0)
+        {
+            // Pick a random typing sound for variety
+            AudioClip clip = typeSoundEffects[Random.Range(0, typeSoundEffects.Length)];
+            // Randomize pitch slightly for realism
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    void PlayErrorSound()
+    {
+        if (audioSource != null && errorSoundEffect != null)
+        {
+            audioSource.pitch = 1.0f; // Reset pitch for error
+            audioSource.PlayOneShot(errorSoundEffect);
         }
     }
 
@@ -144,6 +169,10 @@ public class EmailTyper : MonoBehaviour
             isEmailSent = true;
             Debug.Log("Email Sent!");
 
+            // Play generic button click or specific email sent sound
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayClickSfx();
+            else if (audioSource != null && emailSentSoundEffect != null) audioSource.PlayOneShot(emailSentSoundEffect);
+
             if (sendButton != null) sendButton.interactable = false;
             if (cursorScript != null) cursorScript.SetCursorVisibility(false);
             OnEmailSent?.Invoke();
@@ -152,11 +181,7 @@ public class EmailTyper : MonoBehaviour
 
     public void SetNewEmail(string newText)
     {
-        // --- FIX ADDED HERE ---
-        // Clean the new email text before we start typing it
         emailContent = CleanText(newText);
-        // ----------------------
-
         currentTyped = "";
         isTypingComplete = false;
         isEmailSent = false;
@@ -167,15 +192,11 @@ public class EmailTyper : MonoBehaviour
         if (cursorScript != null) cursorScript.SetCursorVisibility(true);
     }
 
-    // --- HELPER FUNCTION TO FIX INVISIBLE CHARACTERS ---
     private string CleanText(string rawText)
     {
-        // Replaces the invisible "Carriage Return" (\r) with nothing.
-        // This ensures the Enter key (\n) matches perfectly.
         return rawText.Replace("\r", "");
     }
 
-    // --- Scrolling Logic ---
     void HandleScrolling()
     {
         if (textRect == null) return;
@@ -206,6 +227,5 @@ public class EmailTyper : MonoBehaviour
     void TurnOffScreen()
     {
         this.enabled = false;
-
     }
 }

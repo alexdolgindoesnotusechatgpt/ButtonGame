@@ -52,6 +52,12 @@ public class ChargerButton : MonoBehaviour
     {
         isHolding = true;
         UpdateSprite(true);
+        
+        // Play Global Click Sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayClickSfx();
+        }
     }
 
     private void OnMouseUp()

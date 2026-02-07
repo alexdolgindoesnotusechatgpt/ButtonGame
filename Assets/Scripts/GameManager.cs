@@ -14,13 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int minEmailsToSurvive = 2;
 
     [Header("Transition Settings")]
-    [Tooltip("How long the Day 1 screen stays fully visible before fading.")]
     [SerializeField] private float dayScreenDuration = 2.0f;
-    [Tooltip("How long the fade out takes.")]
     [SerializeField] private float fadeDuration = 1.0f;
-    [Tooltip("Grace period (in seconds) before losing a life when battery dies.")]
     [SerializeField] private float gracePeriodDuration = 2.0f;
-    [Tooltip("How long to show Game Over / Fired screen before returning to Main Menu.")]
     [SerializeField] private float gameOverScreenDuration = 4.0f;
 
     [Header("Scene References")]
@@ -30,32 +26,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     
     [Header("Camera Positions")]
-    [Tooltip("Empty GameObject positioned where camera looks at laptop")]
     [SerializeField] private Transform laptopFocus;
-    [Tooltip("Empty GameObject positioned where camera looks at employee")]
     [SerializeField] private Transform employeeFocus;
     [SerializeField] private float cameraPanSpeed = 2.0f;
 
     [Header("Camera Zoom Settings")]
-    [SerializeField] private float normalZoomSize = 5.0f; // Standard orthographic size
-    [SerializeField] private float laptopZoomSize = 3.5f; // Zoomed in orthographic size
+    [SerializeField] private float normalZoomSize = 5.0f; 
+    [SerializeField] private float laptopZoomSize = 3.5f; 
     [SerializeField] private float zoomSpeed = 2.0f;
 
     [Header("UI References")]
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text emailCountText;
-    
-    [Tooltip("The UI Image used to display the lives.")]
     [SerializeField] private Image livesImage;
-
-    [Tooltip("Order from 0 lives to 3 lives. Element 0 = Empty, Element 3 = Full.")]
     [SerializeField] private Sprite[] lifeSprites;
     
     [Header("Screens")]
-    [SerializeField] private GameObject day1Screen; // Contains "Day 1" text
-    [SerializeField] private GameObject day2Screen; // "You Survived"
-    [SerializeField] private GameObject gameOverScreen; // "You Died" (0 Lives)
-    [SerializeField] private GameObject firedScreen;  // "You're Fired" (< 2 Emails)
+    [SerializeField] private GameObject day1Screen;
+    [SerializeField] private GameObject day2Screen;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject firedScreen;
 
     private int currentLives;
     private int emailsSent;
@@ -64,9 +54,7 @@ public class GameManager : MonoBehaviour
     private bool isChattyEventActive = false;
     private float nextChattyEventTime;
     
-    // Zoom state
     private float targetZoomSize;
-
     private Coroutine gracePeriodCoroutine;
 
     void Awake()
@@ -77,12 +65,23 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Setup Initial State
+        // --- MUSIC SWITCH FIX ---
+        // We try to switch music here. 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayGameMusic();
+        }
+        else
+        {
+            // If AudioManager is missing (started directly in GameScene for testing), creating a temporary one or logging error.
+            Debug.LogWarning("AudioManager instance not found in Game Scene. Start from Main Menu to hear music.");
+        }
+        // ------------------------
+
         currentLives = maxLives;
         emailsSent = 0;
         timeRemaining = day1Duration;
         
-        // Initialize camera zoom
         if (mainCamera != null)
         {
             targetZoomSize = normalZoomSize;
@@ -93,27 +92,22 @@ public class GameManager : MonoBehaviour
         UpdateEmailUI();
         UpdateTimerUI();
 
-        // Listen for Battery Death and Restoration
         if (battery != null)
         {
             battery.OnPowerDepleted.AddListener(OnBatteryDied);
             battery.OnPowerRestored.AddListener(OnBatteryRestored); 
         }
         
-        // Listen for Email Sent
         if (emailTyper != null)
             emailTyper.OnEmailSent.AddListener(OnEmailCompleted);
 
-        // Schedule first interruption (e.g., at 60 seconds remaining)
         nextChattyEventTime = day1Duration - 60f;
 
-        // Start the Intro Sequence automatically
         StartCoroutine(DayStartSequence());
     }
 
     void Update()
     {
-        // Handle Zooming every frame
         if (mainCamera != null)
         {
             mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetZoomSize, Time.deltaTime * zoomSpeed);
@@ -121,22 +115,14 @@ public class GameManager : MonoBehaviour
 
         if (!isGameActive) return;
 
-        // Manual Zoom Toggle (Right Click)
-        // Ensure we don't interfere if the Chatty Event is controlling the camera
         if (!isChattyEventActive && Input.GetMouseButtonDown(1))
         {
-            // If we are close to the "zoomed in" sate, toggle to "zoomed out", and vice versa
             if (Mathf.Abs(targetZoomSize - laptopZoomSize) < 0.1f)
-            {
                 targetZoomSize = normalZoomSize;
-            }
             else
-            {
                 targetZoomSize = laptopZoomSize;
-            }
         }
 
-        // Timer Logic
         timeRemaining -= Time.deltaTime;
         UpdateTimerUI();
 
@@ -146,7 +132,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Chatty Event Logic (Triggers every 60 seconds)
         if (!isChattyEventActive && timeRemaining <= nextChattyEventTime)
         {
             StartCoroutine(ChattyEventRoutine());
@@ -154,22 +139,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // --- Public methods for UI Buttons ---
+    // --- Start Day Logic ---
 
     public void StartDay1()
     {
         isGameActive = true;
-        ShowScreen(null); // Hide all overlay screens
+        ShowScreen(null);
         
-        // Ensure inputs are active
         if (emailTyper != null) emailTyper.enabled = true;
 
-        // Zoom in when day starts
         targetZoomSize = laptopZoomSize;
     }
 
     public void GoToMainMenu()
     {
+        // Switch back to title music before loading menu
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayTitleMusic();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -180,20 +165,15 @@ public class GameManager : MonoBehaviour
 
     // --- Gameplay Logic ---
 
-    // Triggered when battery hits 0
     private void OnBatteryDied()
     {
         if (!isGameActive) return;
-
-        // Start the grace period instead of immediately losing a life
         if (gracePeriodCoroutine != null) StopCoroutine(gracePeriodCoroutine);
         gracePeriodCoroutine = StartCoroutine(GracePeriodRoutine());
     }
 
-    // Triggered usually by the ChargerButton adding charge back to the battery
     private void OnBatteryRestored()
     {
-        // One of the conditions to survive the grace period: charge it back up!
         if (gracePeriodCoroutine != null)
         {
             StopCoroutine(gracePeriodCoroutine);
@@ -203,15 +183,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GracePeriodRoutine()
     {
-        // Wait for player to panic and find the charger
         yield return new WaitForSeconds(gracePeriodDuration);
 
-        // If we get here, the battery was not restored in time
         if (isGameActive)
         {
             LoseLife();
         }
-        
         gracePeriodCoroutine = null;
     }
 
@@ -226,9 +203,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Reset Battery so the game can continue
-            // We fully recharge it instantly so the player can continue their emails
-            // Note: EmailTyper is untouched, so progress remains.
             if (battery != null)
                 battery.AddCharge(battery.maxSeconds);
         }
@@ -243,11 +217,7 @@ public class GameManager : MonoBehaviour
     private void EndDay()
     {
         isGameActive = false;
-        
-        // Disable gameplay
         if (emailTyper != null) emailTyper.enabled = false;
-
-        // Zoom out
         targetZoomSize = normalZoomSize;
 
         if (emailsSent < minEmailsToSurvive)
@@ -256,7 +226,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Success!
             ShowScreen(day2Screen);
         }
     }
@@ -265,20 +234,14 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = false;
         if (emailTyper != null) emailTyper.enabled = false;
-
-        // Zoom out
         targetZoomSize = normalZoomSize;
-        
         StartCoroutine(TransitionToMainMenu(gameOverScreen));
     }
 
     private IEnumerator TransitionToMainMenu(GameObject screenToShow)
     {
         ShowScreen(screenToShow);
-
-        // Wait a few seconds for player to realize their failure
         yield return new WaitForSeconds(gameOverScreenDuration);
-
         GoToMainMenu();
     }
 
@@ -286,19 +249,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DayStartSequence()
     {
-        // 1. Show the screen (Active = true)
         ShowScreen(day1Screen);
         
-        // Helper: Ensure we have a CanvasGroup to fade
         CanvasGroup group = day1Screen.GetComponent<CanvasGroup>();
         if (group == null) group = day1Screen.AddComponent<CanvasGroup>();
-        
         group.alpha = 1f;
 
-        // 2. Wait for reading time
         yield return new WaitForSeconds(dayScreenDuration);
 
-        // 3. Fade Out
         float t = 0;
         while (t < fadeDuration)
         {
@@ -307,44 +265,30 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        // 4. Start Game (This will also setSetActive(false) on the screen)
         StartDay1();
-        
-        // Reset alpha in case we reuse this object later (optional)
         group.alpha = 1f;
     }
 
     private IEnumerator ChattyEventRoutine()
     {
         isChattyEventActive = true;
-        
-        // 1. Zoom OUT before moving
-        targetZoomSize = normalZoomSize;
+        targetZoomSize = normalZoomSize; // Zoom out for event
 
-        // 2. Disable working on laptop so typing stops
         if (emailTyper != null) emailTyper.enabled = false;
 
-        // 3. Pan to Employee
         yield return MoveCamera(employeeFocus.position);
 
-        // 4. Start Chattering
         if (chattyEmployee != null) chattyEmployee.StartChattering();
 
-        // 5. Wait for duration (e.g., 15 seconds)
         yield return new WaitForSeconds(15f);
 
-        // 6. Stop Chattering
         if (chattyEmployee != null) chattyEmployee.StopChattering();
 
-        // 7. Pan Back
         yield return MoveCamera(laptopFocus.position);
 
-        // 8. Re-enable working
         if (isGameActive && emailTyper != null) emailTyper.enabled = true;
 
-        // 9. Zoom back IN
-        targetZoomSize = laptopZoomSize;
-
+        targetZoomSize = laptopZoomSize; // Zoom back in after event
         isChattyEventActive = false;
     }
 
@@ -354,7 +298,6 @@ public class GameManager : MonoBehaviour
 
         float t = 0;
         Vector3 startPos = mainCamera.transform.position;
-        // Maintain the camera's original Z depth (critical for 2D)
         targetPos.z = startPos.z;
 
         while (t < 1.0f)
@@ -371,10 +314,7 @@ public class GameManager : MonoBehaviour
     private void UpdateLivesUI()
     {
         if (livesImage == null || lifeSprites == null || lifeSprites.Length == 0) return;
-
-        // Safely map currentLives (0-3) to the array index
         int index = Mathf.Clamp(currentLives, 0, lifeSprites.Length - 1);
-        
         livesImage.sprite = lifeSprites[index];
     }
 

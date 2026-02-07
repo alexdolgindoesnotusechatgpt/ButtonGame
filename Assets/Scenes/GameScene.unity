@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChattyEmployee
   chatBubblePrefab: {fileID: 8996693456110579950, guid: ed5bf5e4ff9d7d94f94434f5d118521f, type: 3}
   spawnArea: {fileID: 1866995111}
-  spawnInterval: 0.8
+  spawnInterval: 1.3
 --- !u!1 &373601701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,10 +2231,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EmailPlaylistManager
   emailTyper: {fileID: 1521574937}
   emailContentList:
-  - "Subject: Unity & Allocation\r\nDear Member, \nPower is a privilege.\r\nThose
-    who question their allocation often find themselves unprepared for the consequences
-    of independence. Unity strengthens the Grid.\r\nUse only what you are given.
-    \nConCharge Compliance"
+  - "Subject: Unity & Allocation\r\nDear Member, \nPower is a privilege.\r\nYou are
+    unprepared for the consequences of independence. \nUnity strengthens the Grid.\r\nUse
+    only what you are given. \nConCharge Compliance"
   - 'Hi,
 
     We understand your frustration. Your message has been received, categorized,
@@ -2245,36 +2244,30 @@ MonoBehaviour:
 
     With empathy,
 
-    ConCharge
-    Automated Response System'
-  - "Dear Valued Customer,\r\nThank you for reaching out about the temporary power
-    disruption you experienced.\r\nAfter careful review, we\u2019ve determined that
-    electricity was functioning as designed. Any inconvenience may be the result
-    of individual expectations regarding \u201Ccontinuous power.\u201D\r\nWe encourage
-    customers to view outages as opportunities to reconnect with their surroundings.\r\nSincerely,\r\nConCharge
-    Customer Experience Team"
-  - "Dear Customer, \r\nThank you so much for bringing this to our attention! We
-    truly appreciate your proactive engagement and commitment to transparency.\r\nAt
+    Automated
+    Response System'
+  - "Hi,\nAfter careful review, we\u2019ve determined that electricity was functioning
+    as designed. Any inconvenience may be the result of individual expectations regarding
+    \u201Ccontinuous power.\u201D\r\nWe encourage customers to view outages as opportunities
+    to reconnect with their surroundings.\r\n\r\nConCharge Customer Experience Team"
+  - "Dear Customer, \n\r\nThank you so much for bringing this to our attention!\r\nAt
     this time, we are unable to implement any immediate changes, but please rest
-    assured that your feedback has been noted, archived, reviewed, and gently admired.\r\nShould
-    you have any further concerns, we encourage you to continue sharing them in the
-    spirit of collaboration.\r\nWarm regards,\r\nManagement\r\n"
+    assured that your feedback has been noted, archived, reviewed, and gently admired.\r\r\nWarm
+    regards,\r\nManagement\r\n"
   - 'Hi Team!
 
-    Just a gentle reminder that while we value individuality, we also
-    value consistency, uniformity, and doing things the approved way. If you feel
-    confused about expectations, that likely means expectations are working as intended.
+    Gentle reminder:  If you feel confused about expectations, that
+    likely means expectations are working as intended.
 
-    Thanks
-    for your flexibility!
+    Thanks for your flexibility!
 
     Leadership'
   - "Dear Customer,\n\r\nWe're excited to announce an adjustment to your monthly
     rate. This change reflects our continued investment in infrastructure, innovation,
     and executive wellness.\r\nWhile your bill may increase, please remember: progress
-    has a cost, and we\u2019ve chosen you to help cover it.\r\nThank you for powering
-    the future with us.\r\nConCharge Billing Department"
+    has a cost.\r\r\nBilling Department"
   - 'QzqZQPpPpPpqmQmMQ~0,.><+_=\][
+
 
     Warm regards,
 
@@ -2928,6 +2921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521574938}
   - component: {fileID: 1521574937}
+  - component: {fileID: 1521574939}
   m_Layer: 0
   m_Name: EmailTyper
   m_TagString: Untagged
@@ -2952,6 +2946,10 @@ MonoBehaviour:
   emailContent: 
   typedColor: {r: 0.58246726, g: 0, b: 0.5999999, a: 1}
   remainingColor: {r: 0, g: 0, b: 0, a: 1}
+  typeSoundEffects:
+  - {fileID: 8300000, guid: ef39b9fdd9fa1aa4883f966ba7445ce2, type: 3}
+  errorSoundEffect: {fileID: 8300000, guid: c49af394f52185649b957721b80b01d4, type: 3}
+  emailSentSoundEffect: {fileID: 8300000, guid: 525b37ad30fb65c45adaa7524b088b9d, type: 3}
   textRect: {fileID: 999144046}
   scrollSpeed: 10
   preferredLineY: -99.5
@@ -2986,6 +2984,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 638750640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1521574939
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521574936}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1620380702
 GameObject:
   m_ObjectHideFlags: 0
