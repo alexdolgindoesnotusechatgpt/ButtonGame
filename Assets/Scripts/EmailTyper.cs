@@ -1,42 +1,52 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI; // Required for the Button
 using UnityEngine.Events;
-using JetBrains.Annotations;
 
 public class EmailTyper : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private TMP_Text emailDisplay;
+    [Tooltip("The UI Button on the laptop screen that sends the email")]
+    [SerializeField] private Button sendButton;
 
     [Header("Game Settings")]
     [TextArea(5, 10)]
-    [SerializeField] private string emailContent = "Subject: Hello World\n\nTo whom it may concern,\n\nI am writing to inform you...";
-
+    [SerializeField] private string emailContent = "Subject: Hello World...";
     [SerializeField] private Color typedColor = Color.green;
     [SerializeField] private Color remainingColor = Color.white;
 
     [Header("Scrolling Settings")]
     [SerializeField] private RectTransform textRect;
     [SerializeField] private float scrollSpeed = 8f;
-
-    [Tooltip("The line being typed will always try to stay at this Y position inside the mask (e.g., -50).")]
     [SerializeField] private float preferredLineY = -50f;
 
-    [Tooltip("The black object that covers the screen when power dies")]
-    [SerializeField] private GameObject blackScreenOverlay;
+    [Header("Visuals")]
+    [SerializeField] private TypewriterCursor cursorScript; 
 
     [Header("Events")]
-    public UnityEvent OnEmailComplete;
+    public UnityEvent OnEmailSent;
 
     private string currentTyped = "";
-    private bool isComplete = false;
+    private bool isTypingComplete = false;
+    private bool isEmailSent = false;
     private float targetScrollY = 0f;
 
     void Start()
     {
-
-        // Text must be Top-Aligned for the math to work easily
         emailDisplay.alignment = TextAlignmentOptions.TopLeft;
+
+        // --- FIX ADDED HERE ---
+        // We sanitize the starting text to remove invisible characters
+        emailContent = CleanText(emailContent);
+        // ----------------------
+
+        if (sendButton != null)
+        {
+            sendButton.interactable = false;
+            sendButton.onClick.RemoveAllListeners();
+            sendButton.onClick.AddListener(OnSendButtonClicked);
+        }
 
         // Initialize display
         emailDisplay.text = emailContent;
@@ -51,7 +61,7 @@ public class EmailTyper : MonoBehaviour
 
     void HandleInput()
     {
-        if (isComplete) return;
+        if (isEmailSent) return;
 
         foreach (char c in Input.inputString)
         {
@@ -63,7 +73,8 @@ public class EmailTyper : MonoBehaviour
                     UpdateDisplay();
                 }
             }
-            else if (c == '\n' || c == '\r') // Enter
+            // Consolidate both Return and Enter keys to a standard newline character
+            else if (c == '\n' || c == '\r')
             {
                 CheckInput('\n');
             }
@@ -84,29 +95,18 @@ public class EmailTyper : MonoBehaviour
             {
                 currentTyped += inputChar;
                 UpdateDisplay();
-
-                if (currentTyped.Length == emailContent.Length)
-                {
-                    isComplete = true;
-                    OnEmailComplete?.Invoke();
-                }
+                CheckButtonState(); // Check if we are done
+            }
+            else
+            {
+                // Optional Debug: Uncomment this if you get stuck again
+                // Debug.Log($"Expected: {(int)expectedChar} | Typed: {(int)inputChar}");
             }
         }
     }
 
-    void HandleScrolling()
-    {
-        if (textRect == null) return;
-
-        Vector3 newPos = textRect.anchoredPosition;
-        // Smoothly move the text container to the target Y
-        newPos.y = Mathf.Lerp(newPos.y, targetScrollY, Time.deltaTime * scrollSpeed);
-        textRect.anchoredPosition = newPos;
-    }
-
     void UpdateDisplay()
     {
-        // 1. Update Text Colors
         string hexColor = ColorUtility.ToHtmlStringRGB(typedColor);
         string remainHex = ColorUtility.ToHtmlStringRGB(remainingColor);
         string remainingText = "";
@@ -114,65 +114,98 @@ public class EmailTyper : MonoBehaviour
         if (currentTyped.Length < emailContent.Length)
             remainingText = emailContent.Substring(currentTyped.Length);
 
-        // Simple coloring: Typed vs Remaining
         emailDisplay.text = $"<color=#{hexColor}>{currentTyped}</color><color=#{remainHex}>{remainingText}</color>";
 
-        // 2. Force Update to calculate positions of the new text
         emailDisplay.ForceMeshUpdate();
-
-        // 3. Update Scroll Target
         UpdateScrollTarget();
+        CheckButtonState();
+
+        if (cursorScript != null)
+        {
+            int nextIndex = currentTyped.Length;
+            cursorScript.MoveToChar(nextIndex);
+        }
     }
 
-    void UpdateScrollTarget()
+    void CheckButtonState()
     {
-        // Get the index of the character we just typed
-        int charIndex = currentTyped.Length;
+        isTypingComplete = (currentTyped.Length == emailContent.Length);
 
-        // Safety check: if at end of string, clamp to last char
-        if (charIndex >= emailDisplay.textInfo.characterCount)
-            charIndex = emailDisplay.textInfo.characterCount - 1;
-
-        if (charIndex < 0) return;
-
-        // Get the line number of that character
-        TMP_CharacterInfo charInfo = emailDisplay.textInfo.characterInfo[charIndex];
-        int lineIndex = charInfo.lineNumber;
-
-        if (lineIndex < emailDisplay.textInfo.lineInfo.Length)
+        if (sendButton != null)
         {
-            TMP_LineInfo lineInfo = emailDisplay.textInfo.lineInfo[lineIndex];
+            sendButton.interactable = isTypingComplete && !isEmailSent;
+        }
+    }
 
-            // "ascender" is the Y position of the TOP of the current line
-            float currentLineTopY = lineInfo.ascender;
+    public void OnSendButtonClicked()
+    {
+        if (isTypingComplete && !isEmailSent)
+        {
+            isEmailSent = true;
+            Debug.Log("Email Sent!");
 
-            // Calculate how much we need to move the content UP to get this line to 'preferredLineY'
-            float neededY = preferredLineY - currentLineTopY;
-
-            // Clamp so we don't scroll past the top
-            if (neededY < 0) neededY = 0;
-
-            targetScrollY = neededY;
+            if (sendButton != null) sendButton.interactable = false;
+            if (cursorScript != null) cursorScript.SetCursorVisibility(false);
+            OnEmailSent?.Invoke();
         }
     }
 
     public void SetNewEmail(string newText)
     {
-        emailContent = newText;
+        // --- FIX ADDED HERE ---
+        // Clean the new email text before we start typing it
+        emailContent = CleanText(newText);
+        // ----------------------
+
         currentTyped = "";
-        isComplete = false;
+        isTypingComplete = false;
+        isEmailSent = false;
         targetScrollY = 0;
+
         UpdateDisplay();
+        
+        if (cursorScript != null) cursorScript.SetCursorVisibility(true);
     }
 
-    public void TurnOffScreen()
+    // --- HELPER FUNCTION TO FIX INVISIBLE CHARACTERS ---
+    private string CleanText(string rawText)
+    {
+        // Replaces the invisible "Carriage Return" (\r) with nothing.
+        // This ensures the Enter key (\n) matches perfectly.
+        return rawText.Replace("\r", "");
+    }
+
+    // --- Scrolling Logic ---
+    void HandleScrolling()
+    {
+        if (textRect == null) return;
+        Vector3 newPos = textRect.anchoredPosition;
+        newPos.y = Mathf.Lerp(newPos.y, targetScrollY, Time.deltaTime * scrollSpeed);
+        textRect.anchoredPosition = newPos;
+    }
+
+    void UpdateScrollTarget()
+    {
+        int charIndex = currentTyped.Length;
+        if (charIndex >= emailDisplay.textInfo.characterCount)
+            charIndex = emailDisplay.textInfo.characterCount - 1;
+
+        if (charIndex < 0) return;
+
+        int lineIndex = emailDisplay.textInfo.characterInfo[charIndex].lineNumber;
+
+        if (lineIndex < emailDisplay.textInfo.lineInfo.Length)
+        {
+            float currentLineTopY = emailDisplay.textInfo.lineInfo[lineIndex].ascender;
+            float neededY = preferredLineY - currentLineTopY;
+            if (neededY < 0) neededY = 0;
+            targetScrollY = neededY;
+        }
+    }
+
+    void TurnOffScreen()
     {
         this.enabled = false;
-        emailDisplay.enabled = false;
-    }
-    public void TurnOnScreen()
-    {
-        this.enabled = true;
-        emailDisplay.enabled = true;
+
     }
 }
